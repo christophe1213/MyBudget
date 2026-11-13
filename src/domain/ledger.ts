@@ -23,7 +23,7 @@ export function emptyWallet(id: string, name: string): Wallet {
 /** Crée un portefeuille cohérent : les catégories utilisées par des transactions sont ajoutées si elles manquent. */
 export function normalizeWallet(w: Wallet): Wallet {
   const known = new Map(w.categories.map((c) => [c.name, c]))
-  for (const t of w.transactions) if (t.category && !known.has(t.category)) known.set(t.category, { name: t.category, dailyBudget: 0 })
+  for (const t of w.transactions) if (t.category && !known.has(t.category)) known.set(t.category, { name: t.category, dailyBudget: 0, initialBalance: 0 })
   return { ...w, categories: [...known.values()].sort(byName) }
 }
 
@@ -31,7 +31,7 @@ export function addCategory(w: Wallet, rawName: string): Wallet {
   const name = rawName.trim().replace(/\s+/g, ' ')
   if (!name) throw new DomainError('Le nom ne peut pas être vide.')
   if (hasCategory(w, name)) throw new DomainError(`La catégorie « ${name} » existe déjà.`)
-  return { ...w, categories: [...w.categories, { name, dailyBudget: 0 }].sort(byName) }
+  return { ...w, categories: [...w.categories, { name, dailyBudget: 0, initialBalance: 0 }].sort(byName) }
 }
 
 export function renameCategory(w: Wallet, oldName: string, rawNew: string): Wallet {
@@ -61,6 +61,13 @@ export function setDailyBudget(w: Wallet, name: string, amount: number): Wallet 
   if (!w.categories.some((c) => c.name === name)) throw new DomainError('Catégorie inconnue.')
   if (!Number.isInteger(amount) || amount < 0) throw new DomainError('Le budget doit être un entier positif ou nul.')
   return { ...w, categories: w.categories.map((c) => (c.name === name ? { ...c, dailyBudget: amount } : c)) }
+}
+
+/** Solde de départ d'une catégorie (argent déjà présent avant la première transaction) ; 0 pour une catégorie qui démarre vide. */
+export function setCategoryInitialBalance(w: Wallet, name: string, amount: number): Wallet {
+  if (!w.categories.some((c) => c.name === name)) throw new DomainError('Catégorie inconnue.')
+  if (!Number.isInteger(amount) || amount < 0) throw new DomainError('Le solde de départ doit être un entier positif ou nul.')
+  return { ...w, categories: w.categories.map((c) => (c.name === name ? { ...c, initialBalance: amount } : c)) }
 }
 
 export interface NewTransaction {

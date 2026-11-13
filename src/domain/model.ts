@@ -16,6 +16,8 @@ export interface Category {
   readonly name: string
   /** Budget par jour en Ariary ; 0 = pas de budget. */
   readonly dailyBudget: number
+  /** Solde de départ en Ariary, entier positif ou nul : argent déjà présent dans la catégorie avant sa première transaction. */
+  readonly initialBalance: number
 }
 
 /** Un portefeuille = un livre de comptes. */

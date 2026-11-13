@@ -28,7 +28,7 @@ export function CategoriesSection() {
                   <button type="button" onClick={() => setEditing(c.name)} className="flex min-h-14 w-full items-center gap-3 rounded-xl px-1 py-2 text-left active:bg-surface">
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-semibold">{c.name}</span>
-                      <span className="block text-xs text-muted">{c.dailyBudget > 0 ? `Budget : ${formatAr(c.dailyBudget)} / jour` : 'Pas de budget par jour'}</span>
+                      <span className="block text-xs text-muted">{c.dailyBudget > 0 ? `Budget : ${formatAr(c.dailyBudget)} / jour` : 'Pas de budget par jour'}{c.initialBalance > 0 ? ` · départ ${formatAr(c.initialBalance)}` : ''}</span>
                     </span>
                     <span className={`shrink-0 text-sm font-bold tabular-nums ${balance < 0 ? 'text-danger' : 'text-brand-700'}`}>{formatSigned(balance)}</span>
                   </button>
@@ -37,7 +37,7 @@ export function CategoriesSection() {
             })}
           </ul>
         )}
-        <p className="mt-3 text-xs text-muted">Solde = dépôts − dépenses de la catégorie. Touchez une catégorie pour la renommer, régler son budget par jour ou la supprimer.</p>
+        <p className="mt-3 text-xs text-muted">Solde = solde de départ + dépôts − dépenses de la catégorie. Touchez une catégorie pour la renommer, régler son budget par jour, son solde de départ ou la supprimer.</p>
       </Card>
       {adding && <NewCategorySheet onClose={() => setAdding(false)} />}
       {editing && <CategorySheet key={editing} name={editing} onClose={() => setEditing(null)} />}
@@ -71,26 +71,29 @@ export function CategorySheet({ name, onClose }: { name: string; onClose: () => 
   const [newName, setNewName] = useState(name)
   const [budget, setBudget] = useState(dailyBudget(wallet, name) ? formatNumber(dailyBudget(wallet, name)) : '')
   const [budgetError, setBudgetError] = useState<string | null>(null)
+  const startOf = wallet.categories.find((c) => c.name === name)?.initialBalance ?? 0
+  const [start, setStart] = useState(startOf ? formatNumber(startOf) : '')
+  const [startError, setStartError] = useState<string | null>(null)
   const usage = categoryUsage(wallet, name)
 
   const save = (e: React.FormEvent): void => {
     e.preventDefault()
     const amount = parseAmountOrZero(budget)
-    if (amount === null) {
-      setBudgetError('Entrez un montant entier (0 pour supprimer le budget).')
-      return
-    }
-    setBudgetError(null)
+    const startAmount = parseAmountOrZero(start)
+    setBudgetError(amount === null ? 'Entrez un montant entier (0 pour supprimer le budget).' : null)
+    setStartError(startAmount === null ? 'Entrez un montant entier (0 si la catégorie démarre vide).' : null)
+    if (amount === null || startAmount === null) return
     const finalName = newName.trim().replace(/\s+/g, ' ')
     const ok = run(() => {
       if (finalName !== name) service.renameCategory(name, newName)
       service.setDailyBudget(finalName, amount)
+      service.setCategoryInitialBalance(finalName, startAmount)
     }, 'Catégorie enregistrée')
     if (ok) onClose()
   }
 
   const remove = async (): Promise<void> => {
-    const ok = await confirm({ title: `Supprimer « ${name} » ?`, message: 'La catégorie sera retirée de la liste.', confirmLabel: 'Supprimer', danger: true })
+    const ok = await confirm({ title: `Supprimer « ${name} » ?`, message: startOf > 0 ? `La catégorie sera retirée de la liste, avec son solde de départ de ${formatAr(startOf)} : le solde total diminue d'autant.` : 'La catégorie sera retirée de la liste.', confirmLabel: 'Supprimer', danger: true })
     if (ok && run(() => service.removeCategory(name), 'Catégorie supprimée')) onClose()
   }
 
@@ -107,6 +110,9 @@ export function CategorySheet({ name, onClose }: { name: string; onClose: () => 
         <Field label="Nom">{(id) => <TextInput id={id} value={newName} onChange={(e) => setNewName(e.target.value)} autoComplete="off" />}</Field>
         <Field label="Budget par jour (Ar)" hint="Sert à calculer les budgets à déposer. Laissez vide pour ne pas en avoir." error={budgetError}>
           {(id) => <AmountInput id={id} value={budget} onChange={setBudget} placeholder="0" />}
+        </Field>
+        <Field label="Solde de départ (Ar)" hint="Argent déjà présent dans cette catégorie avant votre première transaction. Il s'ajoute au solde total et réduit le montant à déposer." error={startError}>
+          {(id) => <AmountInput id={id} value={start} onChange={setStart} placeholder="0" />}
         </Field>
       </form>
     </Sheet>

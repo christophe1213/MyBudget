@@ -19,6 +19,7 @@ describe('stockage local : données conservées entre deux lancements', () => {
     const first = launch().service
     first.addCategory('Transport')
     first.setDailyBudget('Transport', 3700)
+    first.setCategoryInitialBalance('Transport', 20000)
     first.addTransaction({ date: '2026-10-01', category: 'Transport', kind: 'expense', label: 'taxi', amount: 5000 })
     first.createWallet('Banque')
 
@@ -26,7 +27,7 @@ describe('stockage local : données conservées entre deux lancements', () => {
     expect(second.getSnapshot().wallets.map((w) => w.name)).toEqual(['Principal', 'Banque'])
     expect(second.getSnapshot().activeWalletId).toBe(first.getSnapshot().activeWalletId)
     second.switchWallet(second.getSnapshot().wallets[0]!.id)
-    expect(activeWallet(second.getSnapshot()).categories).toEqual([{ name: 'Transport', dailyBudget: 3700 }])
+    expect(activeWallet(second.getSnapshot()).categories).toEqual([{ name: 'Transport', dailyBudget: 3700, initialBalance: 20000 }])
     expect(activeWallet(second.getSnapshot()).transactions[0]).toMatchObject({ label: 'taxi', amount: 5000, date: '2026-10-01' })
   })
 

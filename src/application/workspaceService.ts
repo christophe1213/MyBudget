@@ -116,6 +116,10 @@ export class WorkspaceService {
     this.change((w) => ledger.setDailyBudget(w, category, amount))
   }
 
+  setCategoryInitialBalance(category: string, amount: number): void {
+    this.change((w) => ledger.setCategoryInitialBalance(w, category, amount))
+  }
+
   /** Crée un dépôt par (catégorie, montant > 0), daté du premier jour de la période. */
   createDeposits(period: Period, lines: readonly (readonly [string, number])[]): number {
     const before = ws.activeWallet(this.state).transactions.length

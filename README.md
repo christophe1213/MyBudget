@@ -20,7 +20,7 @@ Pour essayer tout de suite : **Réglages → Importer (JSON) → Ajouter**, et c
 |---|---|
 | **Accueil** | Solde total ; **camembert des soldes restants par budget** (les catégories en déficit sont signalées à part) ; **courbes des entrées et sorties par jour avec filtre entre deux dates** (Du / Au + raccourcis 7 j, 30 j, Tout) |
 | **Saisie** | Dépense ou dépôt (montant en gros, clavier numérique), catégorie, libellé, date ; liste du jour avec solde et suppression confirmée |
-| **Budgets** | *Catégories* (ajouter, renommer, budget par jour, supprimer) · *Planifier* (suggestion = budget/jour × jours − solde, montant retenu ajustable, création des dépôts, garde-fou contre le doublon) · *Analyser* (moyenne, écart-type, niveaux serré / équilibré / confortable, graphique) |
+| **Budgets** | *Catégories* (ajouter, renommer, budget par jour, **solde de départ**, supprimer) · *Planifier* (suggestion = budget/jour × jours − solde, montant retenu ajustable, création des dépôts, garde-fou contre le doublon) · *Analyser* (moyenne, écart-type, niveaux serré / équilibré / confortable, graphique) |
 | **Rapport** | Entre deux dates : soldes de début et de fin, dépôts, dépenses, net, part de chaque catégorie, plus grosses dépenses |
 | **Réglages** | Solde initial, **portefeuilles** (banque, caisse… : créer, renommer, ouvrir, supprimer), **export / import JSON**, tout effacer |
 
@@ -41,7 +41,7 @@ Tout reste **sur l'appareil** (clé `repere.workspace.v1` du localStorage). Aucu
       "id": "w1",
       "name": "Principal",
       "initialBalance": 16600,
-      "categories": [{ "name": "bazar", "dailyBudget": 3700 }],
+      "categories": [{ "name": "bazar", "dailyBudget": 3700, "initialBalance": 20000 }],
       "transactions": [
         { "id": "t1", "date": "2026-09-01", "category": "bazar", "kind": "expense", "label": "tomates", "amount": 500 }
       ]
@@ -51,6 +51,8 @@ Tout reste **sur l'appareil** (clé `repere.workspace.v1` du localStorage). Aucu
 ```
 
 - `kind` : `expense` (dépense) ou `deposit` (dépôt). `amount` : entier > 0, en Ariary. `date` : `AAAA-MM-JJ`.
+- `initialBalance` d'une catégorie = son **solde de départ** (entier ≥ 0, facultatif : absent = 0). Il compte dans le solde de la catégorie et **s'ajoute**
+  à `initialBalance` du portefeuille : solde de départ total = celui du portefeuille + celui de toutes ses catégories.
 - **Lecture tolérante** (fichiers édités à la main ou produits par un autre outil) : identifiants manquants générés, catégories
   absentes de la liste ajoutées, catégories données comme simples textes, types `dépense` / `dépôt`, noms de portefeuilles en double renommés.
 - **Lecture stricte** sur ce qui fausserait les comptes : date impossible (30 février), montant nul ou négatif, type inconnu, fichier d'une

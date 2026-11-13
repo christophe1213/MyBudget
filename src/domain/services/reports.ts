@@ -1,6 +1,7 @@
 /** Rapport de période : sommes des dépôts et des dépenses par catégorie. */
 import { signedAmount, type Wallet } from '../model'
 import { periodContains, periodDays, type Period } from '../period'
+import { startingBalance } from './balances'
 
 export interface CategoryTotals {
   readonly category: string
@@ -28,7 +29,7 @@ export interface Report {
 export const TOP_EXPENSES = 10
 
 export function buildReport(w: Wallet, period: Period): Report {
-  const openingBalance = w.initialBalance + w.transactions.filter((t) => t.date < period.start).reduce((s, t) => s + signedAmount(t), 0)
+  const openingBalance = startingBalance(w) + w.transactions.filter((t) => t.date < period.start).reduce((s, t) => s + signedAmount(t), 0)
   const totals = new Map<string, { deposits: number; expenses: number; count: number }>()
   const byLabel = new Map<string, { category: string; label: string; amount: number }>()
   for (const t of w.transactions) {

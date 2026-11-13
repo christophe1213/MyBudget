@@ -37,7 +37,7 @@ function InitialBalanceCard() {
     <Card aria-label="Solde initial">
       <CardTitle>Solde initial de « {wallet.name} »</CardTitle>
       <form onSubmit={save} className="space-y-3">
-        <Field label="Montant (Ar)" error={error} hint="Ce que vous aviez avant la première transaction enregistrée.">
+        <Field label="Montant (Ar)" error={error} hint="Ce que vous aviez avant la première transaction, hors catégories. Le solde de départ de chaque catégorie (Budgets → Catégories) s'y ajoute.">
           {(id) => <AmountInput id={id} value={text} onChange={setText} placeholder="0" />}
         </Field>
         <Button type="submit" variant="secondary" full>Enregistrer</Button>

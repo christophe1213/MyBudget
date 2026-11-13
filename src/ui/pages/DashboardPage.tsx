@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import type { Wallet } from '@/domain/model'
 import type { Period } from '@/domain/period'
-import { totalBalance } from '@/domain/services/balances'
+import { startingBalance, totalBalance } from '@/domain/services/balances'
 import { budgetShares, flows } from '@/domain/services/dashboard'
 import { FlowChart, FlowLegend } from '@/ui/charts/FlowChart'
 import { PieChart } from '@/ui/charts/PieChart'
@@ -29,7 +29,7 @@ function BalanceCard({ wallet }: { wallet: Wallet }) {
     <section className="rounded-2xl bg-brand-600 p-5 text-white shadow-sm" aria-label="Solde total">
       <p className="text-sm text-brand-100">{wallet.name} · solde total</p>
       <p className={`mt-1 text-3xl font-bold tabular-nums ${total < 0 ? 'text-warn-50' : ''}`}>{formatAr(total)}</p>
-      <p className="mt-2 text-xs text-brand-100">Solde initial {formatAr(wallet.initialBalance)} · {wallet.transactions.length} transaction(s)</p>
+      <p className="mt-2 text-xs text-brand-100">Solde initial {formatAr(startingBalance(wallet))} · {wallet.transactions.length} transaction(s)</p>
     </section>
   )
 }

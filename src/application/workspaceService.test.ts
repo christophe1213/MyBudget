@@ -70,6 +70,19 @@ describe('commandes : enregistrer d\'abord, adopter ensuite', () => {
   })
 })
 
+describe('budget : solde de départ d\'une catégorie', () => {
+  it('est enregistré avec la catégorie ; une valeur invalide ne modifie ni l\'état ni le stockage', () => {
+    const { service, repository } = withCategories('riz')
+    service.setCategoryInitialBalance('riz', 20000)
+    expect(activeWallet(repository.saved!).categories[0]!.initialBalance).toBe(20000)
+    const before = service.getSnapshot()
+    expect(() => service.setCategoryInitialBalance('riz', -5)).toThrow(DomainError)
+    expect(() => service.setCategoryInitialBalance('inconnue', 5)).toThrow(DomainError)
+    expect(service.getSnapshot()).toBe(before)
+    expect(repository.saved).toBe(before)
+  })
+})
+
 describe('budget : dépôts', () => {
   it('crée un dépôt par catégorie à montant > 0, daté du début, avec le libellé de période', () => {
     const { service } = withCategories('gouter', 'riz')

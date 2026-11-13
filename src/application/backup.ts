@@ -2,9 +2,11 @@
  * Format JSON de l'application (sauvegarde exportée ET contenu du stockage local) :
  *
  *   { "format": "repere", "version": 1, "exportedAt": "...", "activeWalletId": "...",
- *     "wallets": [ { "id", "name", "initialBalance", "categories": [{ "name", "dailyBudget" }],
+ *     "wallets": [ { "id", "name", "initialBalance", "categories": [{ "name", "dailyBudget", "initialBalance" }],
  *                    "transactions": [{ "id", "date": "AAAA-MM-JJ", "category", "kind": "expense"|"deposit",
  *                                      "label", "amount" }] } ] }
+ *
+ * `initialBalance` d'une catégorie (solde de départ) est facultatif : absent = 0. Il s'ajoute à celui du portefeuille.
  *
  * La lecture est tolérante (identifiants manquants, catégories absentes de la liste...) pour accepter des
  * fichiers édités à la main ou produits par d'autres outils ; elle est stricte sur ce qui rendrait les
@@ -51,7 +53,11 @@ function parseCategories(raw: unknown, where: string): Category[] {
     const budget = isObject(item) && typeof item.dailyBudget === 'number' ? Math.round(item.dailyBudget) : 0
     if (budget < 0) throw new DomainError(`${where} : le budget par jour de « ${name} » est négatif.`)
     const key = name.trim().toLocaleLowerCase('fr')
-    if (!seen.has(key)) seen.set(key, { name: name.trim(), dailyBudget: budget })
+    const start = isObject(item) && item.initialBalance !== undefined ? item.initialBalance : 0
+    if (typeof start !== 'number' || !Number.isInteger(start) || start < 0) {
+      throw new DomainError(`${where} : le solde de départ de « ${name} » doit être un entier positif ou nul.`)
+    }
+    if (!seen.has(key)) seen.set(key, { name: name.trim(), dailyBudget: budget, initialBalance: start })
   }
   return [...seen.values()]
 }

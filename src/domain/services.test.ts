@@ -1,6 +1,6 @@
 import * as ledger from './ledger'
 import { makePeriod } from './period'
-import { balanceAt, balanceByDate, totalBalance } from './services/balances'
+import { balanceAt, balanceByDate, categoryBalances, startingBalance, totalBalance } from './services/balances'
 import { depositLabel, proposeBudget } from './services/budget'
 import { budgetShares, flows } from './services/dashboard'
 import { buildReport } from './services/reports'
@@ -27,6 +27,36 @@ describe('soldes', () => {
     expect(balanceAt(w, '2026-09-02')).toBe(8000)
     expect(balanceAt(w, '2026-08-01')).toBe(1000)
     expect(totalBalance(w)).toBe(6500)
+  })
+})
+
+describe('solde de départ des catégories', () => {
+  // 1 000 hors catégories + 20 000 dans « bazar » : le solde de départ du portefeuille est leur somme.
+  const withStart = () => ledger.setCategoryInitialBalance(sample(), 'bazar', 20000)
+
+  it('compte dans le solde de la catégorie ET dans les soldes du portefeuille', () => {
+    const w = withStart()
+    expect(startingBalance(w)).toBe(21000)
+    expect(categoryBalances(w).get('bazar')).toBe(26000)   // 20 000 + 10 000 − 3 000 − 1 000
+    expect(categoryBalances(w).get('gouter')).toBe(-500)
+    expect(balanceAt(w, '2026-08-01')).toBe(21000)
+    expect(balanceByDate(w).map((d) => d.balance)).toEqual([28000, 26500])
+    expect(totalBalance(w)).toBe(26500)
+  })
+
+  it('le total du portefeuille = solde initial + somme des soldes des catégories', () => {
+    const w = withStart()
+    const sum = [...categoryBalances(w).values()].reduce((a, b) => a + b, 0)
+    expect(totalBalance(w)).toBe(w.initialBalance + sum)
+  })
+
+  it('compte dans le solde d\'ouverture du rapport et réduit la suggestion du budget', () => {
+    const w = ledger.setDailyBudget(withStart(), 'bazar', 3700)
+    expect(buildReport(w, makePeriod('2026-09-02', '2026-09-03')).openingBalance).toBe(28000)
+    const [line] = proposeBudget(w, makePeriod('2026-10-01', '2026-10-07'))
+    expect([line!.needed, line!.balance, line!.suggestion]).toEqual([25900, 26000, 0])
+    const [poorer] = proposeBudget(ledger.setCategoryInitialBalance(w, 'bazar', 10000), makePeriod('2026-10-01', '2026-10-07'))
+    expect([poorer!.balance, poorer!.suggestion]).toEqual([16000, 9900])
   })
 })
 
