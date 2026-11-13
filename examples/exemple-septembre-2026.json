@@ -1,0 +1,1449 @@
+{
+  "format": "repere",
+  "version": 1,
+  "exportedAt": "2026-10-05T08:00:00",
+  "activeWalletId": "6cee88fd-f72a-49e1-9949-78e7ebc89261",
+  "wallets": [
+    {
+      "id": "6cee88fd-f72a-49e1-9949-78e7ebc89261",
+      "name": "Principal",
+      "initialBalance": 16600,
+      "categories": [
+        {
+          "name": "bazar",
+          "dailyBudget": 3700
+        },
+        {
+          "name": "bourse",
+          "dailyBudget": 0
+        },
+        {
+          "name": "gouter",
+          "dailyBudget": 600
+        },
+        {
+          "name": "kojakoja",
+          "dailyBudget": 0
+        },
+        {
+          "name": "non distrubué",
+          "dailyBudget": 0
+        },
+        {
+          "name": "riz",
+          "dailyBudget": 0
+        }
+      ],
+      "transactions": [
+        {
+          "id": "d1cfea12-5974-4590-b470-af3edd48a255",
+          "date": "2026-09-01",
+          "category": "riz",
+          "kind": "expense",
+          "label": "riz",
+          "amount": 3200
+        },
+        {
+          "id": "3ddd8380-4a09-4348-8d2d-86ba0e6caa7b",
+          "date": "2026-09-01",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pomme de terre",
+          "amount": 1500
+        },
+        {
+          "id": "62d5d811-d585-4ef8-a9f4-120e50b7ac51",
+          "date": "2026-09-01",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 500
+        },
+        {
+          "id": "b2703e82-84e3-405c-aebf-1bfb85fbcb6c",
+          "date": "2026-09-01",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes haché",
+          "amount": 1500
+        },
+        {
+          "id": "828caf6a-bdbf-41b2-a11b-7b1ebffc42e5",
+          "date": "2026-09-01",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "banane",
+          "amount": 500
+        },
+        {
+          "id": "d19b64aa-4b06-4f45-9830-0a45d6f0bf03",
+          "date": "2026-09-01",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "pomme frittes",
+          "amount": 1500
+        },
+        {
+          "id": "a248a96c-d2fb-4e93-a96e-83496e375d53",
+          "date": "2026-09-01",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1500
+        },
+        {
+          "id": "94260314-24cc-4807-8de3-701bf01e755c",
+          "date": "2026-09-01",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "wifi",
+          "amount": 500
+        },
+        {
+          "id": "201f5fc9-d6d2-4d82-8ed3-bf9480cac73e",
+          "date": "2026-09-01",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "wc",
+          "amount": 100
+        },
+        {
+          "id": "899e52c6-f8fe-4c1b-801c-17a407e359af",
+          "date": "2026-09-02",
+          "category": "gouter",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 7500
+        },
+        {
+          "id": "da04a2de-59f0-4426-9e33-e5dbe6605089",
+          "date": "2026-09-02",
+          "category": "bazar",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 52700
+        },
+        {
+          "id": "5440ce20-0c2f-4f8a-a614-660f98786902",
+          "date": "2026-09-02",
+          "category": "riz",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 30000
+        },
+        {
+          "id": "d8366391-0944-4c51-bb57-8a884d92826c",
+          "date": "2026-09-02",
+          "category": "kojakoja",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 25300
+        },
+        {
+          "id": "c856ae77-9532-4e02-912a-4b7fda4f4579",
+          "date": "2026-09-02",
+          "category": "non distrubué",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 24500
+        },
+        {
+          "id": "449ec162-8294-430d-9e36-22d4e343cdab",
+          "date": "2026-09-02",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "dentifrice",
+          "amount": 2500
+        },
+        {
+          "id": "7a5f8742-820a-44a7-a82c-d316bbf573d8",
+          "date": "2026-09-02",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 2000
+        },
+        {
+          "id": "ab4314aa-4be0-4826-a0a9-5ff235881df5",
+          "date": "2026-09-02",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 900
+        },
+        {
+          "id": "964b3280-9907-40d7-82fb-a6852d069aa7",
+          "date": "2026-09-02",
+          "category": "non distrubué",
+          "kind": "expense",
+          "label": "wifi",
+          "amount": 24500
+        },
+        {
+          "id": "33917f0c-a95b-4c43-80ff-9d4200635ce1",
+          "date": "2026-09-03",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "055b47d2-2828-4b14-a735-2edfa255c750",
+          "date": "2026-09-03",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "poulet",
+          "amount": 5000
+        },
+        {
+          "id": "1cbb7845-563b-4c66-8a17-0365a407dd64",
+          "date": "2026-09-03",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "légume",
+          "amount": 1000
+        },
+        {
+          "id": "27ed47a4-2c71-45bb-bbfd-d49c1f0a8061",
+          "date": "2026-09-03",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 400
+        },
+        {
+          "id": "51049a5a-904b-4c7c-9807-fbac49fd5059",
+          "date": "2026-09-03",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "savon extra",
+          "amount": 600
+        },
+        {
+          "id": "cb8d5da6-09b8-484d-8e54-c03f78b97764",
+          "date": "2026-09-03",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 500
+        },
+        {
+          "id": "cdae867b-2e86-400f-bc4a-8422bbfe8dea",
+          "date": "2026-09-03",
+          "category": "non distrubué",
+          "kind": "expense",
+          "label": "mini choco",
+          "amount": 400
+        },
+        {
+          "id": "a6be76ec-2d2e-473c-b99f-10226442f582",
+          "date": "2026-09-03",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "photocopie",
+          "amount": 100
+        },
+        {
+          "id": "2117f390-bf0c-4854-82f2-0060fe247ae1",
+          "date": "2026-09-03",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "wifi",
+          "amount": 500
+        },
+        {
+          "id": "c6c86341-3e3c-4bb4-842b-633eaa7f8bab",
+          "date": "2026-09-04",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "photocopie",
+          "amount": 100
+        },
+        {
+          "id": "f220864b-6033-4aec-8fed-39879e4b7fd6",
+          "date": "2026-09-04",
+          "category": "bourse",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 58100
+        },
+        {
+          "id": "1301f431-9c4b-4d01-8513-3686b898992c",
+          "date": "2026-09-04",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "vêtement",
+          "amount": 30000
+        },
+        {
+          "id": "925c0f01-ea12-4a03-b0cd-a9b80c562b58",
+          "date": "2026-09-04",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "8d8776d0-bc9f-4ef0-bc07-18cdfc94390f",
+          "date": "2026-09-04",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "don",
+          "amount": 500
+        },
+        {
+          "id": "7b7f0159-00ba-45de-8ac6-b054b07b5348",
+          "date": "2026-09-04",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "pris de poids",
+          "amount": 100
+        },
+        {
+          "id": "dbd34309-eb32-4e02-89d3-2d6748b5d438",
+          "date": "2026-09-05",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 800
+        },
+        {
+          "id": "f8efc901-be95-455f-82b9-4127d1631d85",
+          "date": "2026-09-05",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes haché",
+          "amount": 1500
+        },
+        {
+          "id": "96826ee7-a9d6-4fb1-a0fc-74e5bfa0ffb5",
+          "date": "2026-09-05",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "legumes",
+          "amount": 1000
+        },
+        {
+          "id": "dca75315-73ab-46a9-9f5f-b6786b27d09f",
+          "date": "2026-09-05",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 400
+        },
+        {
+          "id": "bfa72890-97c9-44fb-bc8d-4bccdef6867d",
+          "date": "2026-09-05",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "madelaine",
+          "amount": 3000
+        },
+        {
+          "id": "bd2fd645-4cf2-4b0e-9eb1-38dc8c73e103",
+          "date": "2026-09-05",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "lessive",
+          "amount": 5000
+        },
+        {
+          "id": "919462bc-5703-4aec-9016-48aae5bda997",
+          "date": "2026-09-05",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 500
+        },
+        {
+          "id": "cc2675d9-deda-4fc4-89a3-421ec6e2d323",
+          "date": "2026-09-05",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "eau",
+          "amount": 200
+        },
+        {
+          "id": "37f9a35c-a9ad-4232-80cf-d0a5c074b897",
+          "date": "2026-09-06",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 1700
+        },
+        {
+          "id": "65a99337-8702-4e8b-9367-ac4424a5a693",
+          "date": "2026-09-06",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "don",
+          "amount": 600
+        },
+        {
+          "id": "f07c6f5d-86ba-4557-a466-7e52033e6eb0",
+          "date": "2026-09-06",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "298d90c7-48da-44c6-95be-722493ec3734",
+          "date": "2026-09-06",
+          "category": "riz",
+          "kind": "expense",
+          "label": "riz",
+          "amount": 16000
+        },
+        {
+          "id": "cf4bb21a-8037-4910-8de7-cdce2fbd5891",
+          "date": "2026-09-06",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 500
+        },
+        {
+          "id": "6a7c9160-a9a4-459e-9d76-7896c646921d",
+          "date": "2026-09-07",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "betsay",
+          "amount": 500
+        },
+        {
+          "id": "8b22e85a-b731-44cd-b898-a1c7d9d33fff",
+          "date": "2026-09-07",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes haché",
+          "amount": 1000
+        },
+        {
+          "id": "d8e52a3d-1079-4d7a-b5bc-1c334f9285c6",
+          "date": "2026-09-07",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 500
+        },
+        {
+          "id": "004d1530-f55e-4776-993b-92d1ecd3f40e",
+          "date": "2026-09-07",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 500
+        },
+        {
+          "id": "76050b53-0ddc-4d1d-9b29-25e635a208f6",
+          "date": "2026-09-07",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "choco",
+          "amount": 400
+        },
+        {
+          "id": "26f40c78-f816-4dc2-bbdc-f1a77d12f762",
+          "date": "2026-09-07",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "l'huille",
+          "amount": 9500
+        },
+        {
+          "id": "bc0bae82-9209-41ec-85ec-8c4fe1a94a20",
+          "date": "2026-09-07",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 600
+        },
+        {
+          "id": "9b93a42b-1bfe-466c-8cc5-a87ebab80fbe",
+          "date": "2026-09-07",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "razoir",
+          "amount": 1000
+        },
+        {
+          "id": "a8b1995d-57a1-4c2d-a4df-43e35bd7a515",
+          "date": "2026-09-07",
+          "category": "gouter",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 6000
+        },
+        {
+          "id": "07c5475d-05e2-4a58-b2fc-51bedf4d7157",
+          "date": "2026-09-07",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "bac à eau",
+          "amount": 13500
+        },
+        {
+          "id": "f238770f-99a1-4b5c-af6c-ce42b4ebb6f6",
+          "date": "2026-09-07",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "extra",
+          "amount": 300
+        },
+        {
+          "id": "bcdd17b3-8d66-4a94-a45d-2341a386db5f",
+          "date": "2026-09-07",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "kitay",
+          "amount": 500
+        },
+        {
+          "id": "bf6d9b75-0c00-42f3-a8e0-179f08258d6e",
+          "date": "2026-09-08",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "l'haricots",
+          "amount": 1500
+        },
+        {
+          "id": "4bfdbc93-0d93-4afe-b425-5f38252cf8a8",
+          "date": "2026-09-08",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "a7182f6f-b2c5-4dea-a22b-f798617c81bf",
+          "date": "2026-09-09",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "af6d0fb9-38f4-4815-a651-f8e6d435d63f",
+          "date": "2026-09-09",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "savon",
+          "amount": 1500
+        },
+        {
+          "id": "a0973e7b-3dbc-4aaf-a881-d37fe45cc104",
+          "date": "2026-09-09",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "4a290ee0-0597-4087-aac0-ad64fe939106",
+          "date": "2026-09-09",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 1800
+        },
+        {
+          "id": "4c4363e6-a0f3-48fd-9ab5-bcd8f0b7d8bd",
+          "date": "2026-09-09",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "7c350d83-3713-46c2-b81a-f433a4f96367",
+          "date": "2026-09-09",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "c966eb81-238e-4c09-af12-7d10b336ce8e",
+          "date": "2026-09-10",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "colgate",
+          "amount": 4000
+        },
+        {
+          "id": "3bd7fc28-a564-47ef-89f5-4d8a3589cb21",
+          "date": "2026-09-11",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "ddc953e7-88e6-4697-ab24-e15125186289",
+          "date": "2026-09-11",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "0b76dce7-d509-4141-9920-5dcdae64426b",
+          "date": "2026-09-11",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 3400
+        },
+        {
+          "id": "4ff35c4c-2aa7-4f56-82e0-eabf644c8d6d",
+          "date": "2026-09-11",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "cocombre",
+          "amount": 1000
+        },
+        {
+          "id": "2f15ac03-9a6b-4e9b-9525-cbc841039985",
+          "date": "2026-09-11",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 1000
+        },
+        {
+          "id": "071c489a-9f56-41cd-9f02-5d6f21bbdeab",
+          "date": "2026-09-11",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "9dd0166e-cb41-4081-9e8f-65ef25bee02e",
+          "date": "2026-09-11",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "pomme frittes",
+          "amount": 2000
+        },
+        {
+          "id": "49d1e645-2220-49d2-ba2e-038b9e87250c",
+          "date": "2026-09-12",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 800
+        },
+        {
+          "id": "ea449c84-2656-4c2a-9fe1-c289205d13c1",
+          "date": "2026-09-12",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "lessive",
+          "amount": 4900
+        },
+        {
+          "id": "a6f3e5d4-52b0-4618-ac20-0a25db46d771",
+          "date": "2026-09-12",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "eau",
+          "amount": 400
+        },
+        {
+          "id": "373007dc-3cfe-4ff7-8290-fd7188ab92e9",
+          "date": "2026-09-13",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "198a62e9-bbf8-46cf-aaa3-c532645e8f75",
+          "date": "2026-09-13",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "3d35dd3d-c513-490f-98f4-8e5e9e4ff3de",
+          "date": "2026-09-13",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes",
+          "amount": 4000
+        },
+        {
+          "id": "308b6979-ba8f-4d3a-8f9e-fd98206cd41d",
+          "date": "2026-09-13",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 500
+        },
+        {
+          "id": "36032d98-b567-417d-b2cf-3cee2925eead",
+          "date": "2026-09-13",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "gigembre",
+          "amount": 200
+        },
+        {
+          "id": "59d2cabd-c36a-40c4-9bb2-69f80b48c32a",
+          "date": "2026-09-13",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "la râpe",
+          "amount": 1000
+        },
+        {
+          "id": "1ffa24c9-d07d-49f1-9503-0b25894474f2",
+          "date": "2026-09-13",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "cocombre",
+          "amount": 1000
+        },
+        {
+          "id": "1889f9b9-219e-4ba4-9f6e-30ec18e8d19a",
+          "date": "2026-09-13",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "quête l'église",
+          "amount": 700
+        },
+        {
+          "id": "5ceac665-aaa3-4031-8bbc-23d587407fd5",
+          "date": "2026-09-13",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "perdu",
+          "amount": 700
+        },
+        {
+          "id": "6a9b586a-6f2c-4791-8d93-3bee8df629eb",
+          "date": "2026-09-14",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 1800
+        },
+        {
+          "id": "64a95ddf-ff5d-46e5-b56c-c9b7c9d919e5",
+          "date": "2026-09-14",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "24da615d-1f4d-4fde-b2a3-9b1c6d729dad",
+          "date": "2026-09-14",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "e661bb85-abf3-44a7-809f-588532d2a887",
+          "date": "2026-09-14",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "banane",
+          "amount": 500
+        },
+        {
+          "id": "9f458ee9-0b85-48b3-a072-8ac96be00824",
+          "date": "2026-09-14",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "cadeau",
+          "amount": 3000
+        },
+        {
+          "id": "5dc7ac3d-96ef-4fbd-8ee1-32d55ca89dfa",
+          "date": "2026-09-14",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 2000
+        },
+        {
+          "id": "532c3822-21d9-412b-8349-5bdfea7efd06",
+          "date": "2026-09-14",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "savon",
+          "amount": 300
+        },
+        {
+          "id": "4266218d-29fc-4b9c-b8b1-1f5bf3e81f18",
+          "date": "2026-09-15",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "ships",
+          "amount": 900
+        },
+        {
+          "id": "9f67a7ef-5f1b-4b66-b2db-137826e0e1ba",
+          "date": "2026-09-15",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes haché",
+          "amount": 1000
+        },
+        {
+          "id": "43fe9383-29a7-4bae-b4bc-e2e885d63aa7",
+          "date": "2026-09-15",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pomme de terre",
+          "amount": 1600
+        },
+        {
+          "id": "f4bf1fca-96cb-432f-b990-4b43cd4f545f",
+          "date": "2026-09-15",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 400
+        },
+        {
+          "id": "305cedd0-2756-49de-9ea8-5b391d200aa2",
+          "date": "2026-09-16",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "kitay",
+          "amount": 500
+        },
+        {
+          "id": "8875464f-21eb-4488-b442-87f4dd91f89f",
+          "date": "2026-09-16",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "f2beafc9-c160-49ac-90d1-f10f8b400b70",
+          "date": "2026-09-16",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "caca pigeon",
+          "amount": 1000
+        },
+        {
+          "id": "13438fe4-4663-41cc-8dd1-a421b5411b60",
+          "date": "2026-09-17",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "acf242e1-f383-4591-87fc-76a2fcbfceba",
+          "date": "2026-09-17",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "59ba61f7-16c2-486a-bd57-407c0a22ee15",
+          "date": "2026-09-17",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "poulet",
+          "amount": 5000
+        },
+        {
+          "id": "5700403a-5712-4cf4-b8f4-9cc1a5a39ad9",
+          "date": "2026-09-17",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "carottes",
+          "amount": 1000
+        },
+        {
+          "id": "672b3664-3986-4045-ae3d-5efc83086452",
+          "date": "2026-09-17",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "3ce4686a-97a7-4c6f-9f7a-2e98013ef3a9",
+          "date": "2026-09-17",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 900
+        },
+        {
+          "id": "7d92c6d1-94f6-4204-a9cb-243612d4ba6c",
+          "date": "2026-09-17",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 900
+        },
+        {
+          "id": "e10b7872-c255-4394-a1ac-cc905a9ce9e8",
+          "date": "2026-09-17",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "mofo bol",
+          "amount": 1000
+        },
+        {
+          "id": "04d87e7c-d24b-46ef-9348-1344f8ea2b04",
+          "date": "2026-09-17",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "c6ed7f8d-0e91-454d-9891-483c2e25f20b",
+          "date": "2026-09-18",
+          "category": "gouter",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 2000
+        },
+        {
+          "id": "22e18bf5-648d-40ba-a51d-ca1020996b20",
+          "date": "2026-09-18",
+          "category": "bazar",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 62900
+        },
+        {
+          "id": "554a65c9-b750-4cc1-aa1b-3cbacaf45274",
+          "date": "2026-09-18",
+          "category": "riz",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 16000
+        },
+        {
+          "id": "5fe6cd39-8b6a-4777-abdf-8bf280dbffe6",
+          "date": "2026-09-18",
+          "category": "kojakoja",
+          "kind": "deposit",
+          "label": "dépôt",
+          "amount": 25100
+        },
+        {
+          "id": "87d2d17f-6b4f-4729-921e-b205bf53f4ae",
+          "date": "2026-09-18",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "ccd6ecbf-3599-4a1c-9954-5b3726901542",
+          "date": "2026-09-18",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "jirama",
+          "amount": 8900
+        },
+        {
+          "id": "9d30aaba-b852-4299-9ab7-8df921ec44e2",
+          "date": "2026-09-19",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 1800
+        },
+        {
+          "id": "bd04b50c-d2cb-4cbb-97bd-df16f3a79da0",
+          "date": "2026-09-19",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 3000
+        },
+        {
+          "id": "2b2a43f2-d130-428e-a980-018a3ae60784",
+          "date": "2026-09-19",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "84254885-ad60-41c4-b54c-bd2de3543bae",
+          "date": "2026-09-19",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "legumes",
+          "amount": 1000
+        },
+        {
+          "id": "de919222-890a-4ec4-ab7c-b974818b14e8",
+          "date": "2026-09-19",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes haché",
+          "amount": 3000
+        },
+        {
+          "id": "b80c9b33-e2ee-481c-8f90-285e41692150",
+          "date": "2026-09-19",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "3bceb138-e098-46a3-bd1f-000075192964",
+          "date": "2026-09-19",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "lessive",
+          "amount": 4100
+        },
+        {
+          "id": "4cb0a352-0352-4658-a738-f7b09e55e413",
+          "date": "2026-09-19",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "eau",
+          "amount": 400
+        },
+        {
+          "id": "fe3d016d-9e61-44a3-a965-adaf13409c2f",
+          "date": "2026-09-19",
+          "category": "riz",
+          "kind": "expense",
+          "label": "riz",
+          "amount": 15000
+        },
+        {
+          "id": "c31d2e28-b584-46db-aa12-f74629da5d26",
+          "date": "2026-09-19",
+          "category": "bourse",
+          "kind": "expense",
+          "label": "potata",
+          "amount": 3500
+        },
+        {
+          "id": "f11161ea-b277-4604-a0a6-8e8cb6e60d11",
+          "date": "2026-09-19",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "coiffure",
+          "amount": 2000
+        },
+        {
+          "id": "2de35346-bf31-4135-96ca-022bfdb0735d",
+          "date": "2026-09-19",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "savon",
+          "amount": 600
+        },
+        {
+          "id": "0449d230-d293-41ad-880d-18976c570c72",
+          "date": "2026-09-20",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "85c542ee-58d1-4582-a69b-28dbc898c5e0",
+          "date": "2026-09-20",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "1f1c2e25-6d42-48d9-bbbf-ae7119cd3f3c",
+          "date": "2026-09-20",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "quête l'église",
+          "amount": 500
+        },
+        {
+          "id": "d771e6ec-9e6f-4d6c-8f4e-8532cdba2526",
+          "date": "2026-09-21",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "betsay",
+          "amount": 500
+        },
+        {
+          "id": "fbe4b895-66a5-4d90-8783-ed194b624fb3",
+          "date": "2026-09-21",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes haché",
+          "amount": 1000
+        },
+        {
+          "id": "85702692-a4d8-4524-9bf0-34ebe75ca957",
+          "date": "2026-09-21",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 400
+        },
+        {
+          "id": "1b82bd22-0118-4ea2-a1aa-d828b25e7479",
+          "date": "2026-09-21",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "mini choco",
+          "amount": 500
+        },
+        {
+          "id": "c840c28a-0494-4cc4-8640-077577d87d63",
+          "date": "2026-09-22",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 1000
+        },
+        {
+          "id": "e230c92d-ee74-476b-b8cd-4ceaba7c68fc",
+          "date": "2026-09-22",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 900
+        },
+        {
+          "id": "2f0d7f2d-b791-40f1-85bb-fbbc6ebb706a",
+          "date": "2026-09-22",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "haricots",
+          "amount": 1500
+        },
+        {
+          "id": "240a85fb-aeca-4c12-bb5f-eefd45c855d9",
+          "date": "2026-09-22",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "56425ad1-e501-4e25-81f9-d27cb499c267",
+          "date": "2026-09-22",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "mini choco",
+          "amount": 400
+        },
+        {
+          "id": "76a9970f-9ab6-415b-8921-25c89037eb42",
+          "date": "2026-09-22",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "eau",
+          "amount": 400
+        },
+        {
+          "id": "90a1d33c-3f72-495c-86c9-3d30f5a627a8",
+          "date": "2026-09-23",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "cocombre",
+          "amount": 1000
+        },
+        {
+          "id": "ba2bde2c-c0ce-4c81-8e30-33d14116adea",
+          "date": "2026-09-23",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 1000
+        },
+        {
+          "id": "a9b16d2b-c9a1-413e-a071-3bc62b172282",
+          "date": "2026-09-23",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 1700
+        },
+        {
+          "id": "12459808-73b9-4094-a31f-3ef69c1d8344",
+          "date": "2026-09-23",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "mini choco",
+          "amount": 400
+        },
+        {
+          "id": "f44e3b52-94aa-4580-9f80-2ea98476c234",
+          "date": "2026-09-24",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 2000
+        },
+        {
+          "id": "a75a6f6b-45fb-4a81-9bc7-5dbf0dccf29c",
+          "date": "2026-09-24",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 900
+        },
+        {
+          "id": "1b0d3270-e7be-4c6d-a3d3-a56ea1b0be99",
+          "date": "2026-09-24",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 500
+        },
+        {
+          "id": "8edb3f80-efb8-4a8d-8211-5fff3f6020b1",
+          "date": "2026-09-24",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "bougie",
+          "amount": 600
+        },
+        {
+          "id": "58abca99-6160-4dc7-9511-a5ad8e58a224",
+          "date": "2026-09-24",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "wifi",
+          "amount": 1000
+        },
+        {
+          "id": "2a4605c9-8f70-497e-9d7f-434b3c45bb15",
+          "date": "2026-09-25",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "7c5240da-c65e-402d-94d3-d6028b8de998",
+          "date": "2026-09-25",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "œuf",
+          "amount": 900
+        },
+        {
+          "id": "8de8049d-db16-44ab-aaaa-9d6ca0b6ab6e",
+          "date": "2026-09-25",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "8131a1de-89c9-4711-9c47-06adbdcc8249",
+          "date": "2026-09-25",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "oignon",
+          "amount": 200
+        },
+        {
+          "id": "e649d934-fb55-4838-9c28-5b7aaf211c1f",
+          "date": "2026-09-25",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 2000
+        },
+        {
+          "id": "669150ce-2c28-41b5-8d48-e7fbba3eb8bf",
+          "date": "2026-09-25",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "cornet",
+          "amount": 1500
+        },
+        {
+          "id": "43560ad5-d3d3-4a69-b4df-f9de087276c7",
+          "date": "2026-09-25",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "chips banane",
+          "amount": 500
+        },
+        {
+          "id": "5ec9496b-e5e0-49bd-983d-3d4cf886c709",
+          "date": "2026-09-25",
+          "category": "riz",
+          "kind": "expense",
+          "label": "riz",
+          "amount": 15000
+        },
+        {
+          "id": "64d1d5f1-bb09-41e4-a970-0dd982b23e92",
+          "date": "2026-09-26",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "lessive",
+          "amount": 5000
+        },
+        {
+          "id": "e2204783-1b94-4f6b-a36b-00e8a5f2636a",
+          "date": "2026-09-26",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "mini choco",
+          "amount": 500
+        },
+        {
+          "id": "4de84f2d-1867-4bb7-9ecc-e1d140a7fbe9",
+          "date": "2026-09-27",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pain",
+          "amount": 500
+        },
+        {
+          "id": "3d565eb3-5f62-478c-ae96-b63ef9add60b",
+          "date": "2026-09-27",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viande haché",
+          "amount": 4000
+        },
+        {
+          "id": "786b7b07-122a-4ea3-b05b-9550cf316f18",
+          "date": "2026-09-27",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "a1aea4c2-0867-4b73-9781-1f84931f4704",
+          "date": "2026-09-27",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "gigembre",
+          "amount": 200
+        },
+        {
+          "id": "b065c07d-e812-4c98-8c8d-fd807f224f3d",
+          "date": "2026-09-27",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "cocombre",
+          "amount": 1000
+        },
+        {
+          "id": "a7b3feef-d722-4107-8ebe-30aa1ee6f798",
+          "date": "2026-09-27",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "quête l'église",
+          "amount": 300
+        },
+        {
+          "id": "2b9452a3-c78d-44a6-a79f-f2dbb97a7999",
+          "date": "2026-09-27",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "eau",
+          "amount": 400
+        },
+        {
+          "id": "66e3aede-ee25-4356-bd57-15542beefeb7",
+          "date": "2026-09-27",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "91322233-2846-4f62-80fa-ca235d115bac",
+          "date": "2026-09-27",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "savon",
+          "amount": 600
+        },
+        {
+          "id": "07b2577b-65a2-473b-88ab-225c7996bbef",
+          "date": "2026-09-28",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pattes",
+          "amount": 2000
+        },
+        {
+          "id": "f49eb3d6-e5dd-47e4-8657-b76524083dea",
+          "date": "2026-09-28",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "oignon",
+          "amount": 1600
+        },
+        {
+          "id": "4b79d580-b3bb-4b4e-b809-3bee6515e6ff",
+          "date": "2026-09-28",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "mini choco",
+          "amount": 800
+        },
+        {
+          "id": "8b1b002a-c52c-4072-9c65-b29a6c430753",
+          "date": "2026-09-28",
+          "category": "kojakoja",
+          "kind": "expense",
+          "label": "charbon",
+          "amount": 1000
+        },
+        {
+          "id": "4dc18a4f-ed07-487b-838b-7ba880f04513",
+          "date": "2026-09-29",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "pomme de terre",
+          "amount": 1600
+        },
+        {
+          "id": "e2ae4a6f-fa2c-4cea-9021-c1f321310836",
+          "date": "2026-09-29",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "tomates",
+          "amount": 200
+        },
+        {
+          "id": "ea3f3077-7072-4a73-b0d7-89dc4042724e",
+          "date": "2026-09-29",
+          "category": "bazar",
+          "kind": "expense",
+          "label": "viandes",
+          "amount": 1000
+        },
+        {
+          "id": "f078f1ad-32e6-4e5b-88e5-130acdcbabcb",
+          "date": "2026-09-29",
+          "category": "gouter",
+          "kind": "expense",
+          "label": "caca pigeon",
+          "amount": 500
+        }
+      ]
+    }
+  ]
+}

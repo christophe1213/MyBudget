@@ -1,0 +1,17 @@
+{
+  "name": "Repère — suivi de vos comptes",
+  "short_name": "Repère",
+  "description": "Notez vos dépenses, suivez vos budgets. Données conservées sur votre appareil.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f9f7",
+  "theme_color": "#217346",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+/* Charte : vert Excel + blanc, avec le bleu (information), l'orange (attention) et le rouge (suppression) en accompagnement. */
+@theme {
+  --color-brand-50: #e8f2ec;
+  --color-brand-100: #cfe6d8;
+  --color-brand-200: #a8d0b9;
+  --color-brand-500: #2e8b57;
+  --color-brand-600: #217346;
+  --color-brand-700: #185c37;
+  --color-brand-800: #124a2d;
+
+  --color-ink: #1e2a24;
+  --color-muted: #6b7b72;
+  --color-line: #dce6e0;
+  --color-surface: #f6f9f7;
+
+  --color-info: #2b7de9;
+  --color-info-50: #e8f1fd;
+  --color-warn: #f28c28;
+  --color-warn-50: #fff1e0;
+  --color-danger: #d64545;
+  --color-danger-50: #fdecec;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-surface font-sans text-ink antialiased;
+    overscroll-behavior-y: none;
+  }
+  button,
+  select,
+  input {
+    touch-action: manipulation;
+  }
+  /* 16 px minimum : iOS agrandit la page quand on touche un champ plus petit. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+@keyframes sheet-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; }
+}
