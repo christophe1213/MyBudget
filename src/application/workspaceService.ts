@@ -161,7 +161,7 @@ export class WorkspaceService {
   }
 
   previewImport(fileName: string, text: string): ImportPreview {
-          alert('test ')
+         
     const workspace = parseWorkspace(text, () => this.deps.ids.next())
 
     return {
