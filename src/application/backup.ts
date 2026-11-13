@@ -54,7 +54,7 @@ function parseCategories(raw: unknown, where: string): Category[] {
     if (budget < 0) throw new DomainError(`${where} : le budget par jour de « ${name} » est négatif.`)
     const key = name.trim().toLocaleLowerCase('fr')
     const start = isObject(item) && item.initialBalance !== undefined ? item.initialBalance : 0
-    if (typeof start !== 'number' || !Number.isInteger(start) || start < 0) {
+    if (typeof start !== 'number' || !Number.isInteger(start) ) {
       throw new DomainError(`${where} : le solde de départ de « ${name} » doit être un entier positif ou nul.`)
     }
     if (!seen.has(key)) seen.set(key, { name: name.trim(), dailyBudget: budget, initialBalance: start })

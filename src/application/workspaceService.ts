@@ -155,11 +155,15 @@ export class WorkspaceService {
   /** Demande un fichier et le vérifie SANS rien modifier ; null si l'utilisateur annule. */
   async chooseImportFile(): Promise<ImportPreview | null> {
     const picked = await this.deps.files.pickText()
+  
+    console.log('picked', picked)
     return picked ? this.previewImport(picked.name, picked.text) : null
   }
 
   previewImport(fileName: string, text: string): ImportPreview {
+          alert('test ')
     const workspace = parseWorkspace(text, () => this.deps.ids.next())
+
     return {
       fileName, workspace,
       wallets: workspace.wallets.map((w) => ({ name: w.name, transactions: w.transactions.length, categories: w.categories.length })),

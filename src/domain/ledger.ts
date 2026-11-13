@@ -59,7 +59,6 @@ export function removeCategory(w: Wallet, name: string): Wallet {
 /** Budget par jour d'une catégorie ; 0 le supprime. */
 export function setDailyBudget(w: Wallet, name: string, amount: number): Wallet {
   if (!w.categories.some((c) => c.name === name)) throw new DomainError('Catégorie inconnue.')
-  if (!Number.isInteger(amount) || amount < 0) throw new DomainError('Le budget doit être un entier positif ou nul.')
   return { ...w, categories: w.categories.map((c) => (c.name === name ? { ...c, dailyBudget: amount } : c)) }
 }
 
