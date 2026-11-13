@@ -63,10 +63,10 @@ export function setDailyBudget(w: Wallet, name: string, amount: number): Wallet 
   return { ...w, categories: w.categories.map((c) => (c.name === name ? { ...c, dailyBudget: amount } : c)) }
 }
 
-/** Solde de départ d'une catégorie (argent déjà présent avant la première transaction) ; 0 pour une catégorie qui démarre vide. */
+/** Solde de départ d'une catégorie (argent déjà présent avant la première transaction). */
 export function setCategoryInitialBalance(w: Wallet, name: string, amount: number): Wallet {
   if (!w.categories.some((c) => c.name === name)) throw new DomainError('Catégorie inconnue.')
-  if (!Number.isInteger(amount) || amount < 0) throw new DomainError('Le solde de départ doit être un entier positif ou nul.')
+  if (!Number.isInteger(amount)) throw new DomainError('Le solde de départ doit être un nombre entier.')
   return { ...w, categories: w.categories.map((c) => (c.name === name ? { ...c, initialBalance: amount } : c)) }
 }
 

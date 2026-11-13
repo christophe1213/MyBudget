@@ -36,8 +36,9 @@ describe('catégories', () => {
     expect(ledger.dailyBudget(ledger.setDailyBudget(ledger.setDailyBudget(fresh(), 'riz', 500), 'riz', 0), 'riz')).toBe(0)
   })
 
-  it('le solde de départ doit être un entier positif ou nul ; il suit la catégorie quand on la renomme', () => {
-    expect(() => ledger.setCategoryInitialBalance(fresh(), 'riz', -1)).toThrow(DomainError)
+  it('le solde de départ accepte les entiers négatifs et positifs ; il suit la catégorie quand on la renomme', () => {
+    const negative = ledger.setCategoryInitialBalance(fresh(), 'riz', -1500)
+    expect(negative.categories.find((c) => c.name === 'riz')!.initialBalance).toBe(-1500)
     expect(() => ledger.setCategoryInitialBalance(fresh(), 'riz', 1.5)).toThrow(DomainError)
     expect(() => ledger.setCategoryInitialBalance(fresh(), 'inconnue', 100)).toThrow('inconnue')
     const w = ledger.setCategoryInitialBalance(fresh(), 'riz', 20000)
