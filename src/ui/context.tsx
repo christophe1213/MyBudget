@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react'
-import { StorageError } from '@/application/ports'
+import { StorageError, SyncError } from '@/application/ports'
 import type { WorkspaceService } from '@/application/workspaceService'
 import { DomainError } from '@/domain/errors'
 import type { Wallet, Workspace } from '@/domain/model'
@@ -31,7 +31,7 @@ export function useWallet(): Wallet {
 
 // ---- exécution d'une commande avec retour à l'utilisateur ------------------------------------------
 export function messageOf(error: unknown): string {
-  if (error instanceof DomainError || error instanceof StorageError) return error.message
+  if (error instanceof DomainError || error instanceof StorageError || error instanceof SyncError) return error.message
   console.error(error)
   return 'Une erreur inattendue est survenue.'
 }
@@ -52,7 +52,7 @@ export function useRun(): (action: () => unknown, success?: string) => boolean {
 }
 
 // ---- navigation entre les pages -----------------------------------------------------------------------
-export type TabId = 'dashboard' | 'entry' | 'budgets' | 'report' | 'settings'
+export type TabId = 'dashboard' | 'entry' | 'budgets' | 'report' | 'settings' | 'sync'
 export type BudgetsSection = 'categories' | 'plan' | 'analysis'
 
 interface Navigation {

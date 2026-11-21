@@ -28,6 +28,34 @@ export interface WorkspaceRepository {
   subscribeExternalChanges?(callback: () => void): () => void
 }
 
+/** La connexion au serveur distant a échoué ou s'est interrompue (message prêt à afficher). */
+export class SyncError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'SyncError'
+  }
+}
+
+/** Message échangé avec le serveur : { "type": "...", "data": ... }. */
+export interface SyncMessage {
+  readonly type: string
+  readonly data?: unknown
+}
+
+export interface SyncConnection {
+  /** Lève SyncError si la connexion est fermée. */
+  send(message: SyncMessage): void
+  onMessage(listener: (message: SyncMessage) => void): void
+  /** `reason` : message prêt à afficher à l'utilisateur. */
+  onClose(listener: (reason: string) => void): void
+  close(): void
+}
+
+export interface SyncGateway {
+  /** Ouvre la connexion ; rejette avec une SyncError si le serveur est injoignable ou refuse la session. */
+  connect(socketUrl: string): Promise<SyncConnection>
+}
+
 export interface Clock {
   today(): IsoDate
   nowIso(): string

@@ -12,10 +12,12 @@ import { DashboardPage } from './pages/DashboardPage'
 import { EntryPage } from './pages/EntryPage'
 import { ReportPage } from './pages/ReportPage'
 import { SettingsPage } from './pages/SettingsPage'
+import { SyncPage } from './pages/SyncPage'
 import { totalBalance } from '@/domain/services/balances'
 
 const PAGES: Record<TabId, () => React.JSX.Element> = {
   dashboard: DashboardPage, entry: EntryPage, budgets: BudgetsPage, report: ReportPage, settings: SettingsPage,
+  sync: SyncPage,   // atteinte depuis Réglages : pas d'onglet dans la barre du bas
 }
 
 export function App({ service, initialTab }: { service: WorkspaceService; initialTab?: TabId }) {
@@ -44,7 +46,7 @@ function Shell() {
         </div>
       )}
       <main className="flex-1 px-4 pb-28 pt-1"><Page /></main>
-      <TabBar current={tab} onChange={go} />
+      <TabBar current={tab === 'sync' ? 'settings' : tab} onChange={go} />
     </div>
   )
 }

@@ -21,3 +21,5 @@ export const UploadIcon = (p: P) => <Icon {...p}><path d="M12 16V5M7 9l5-5 5 5M5
 export const CheckIcon = (p: P) => <Icon {...p}><path d="m5 12.5 4.5 4.5L19 7.5" /></Icon>
 export const WalletIcon = (p: P) => <Icon {...p}><path d="M4 7a2 2 0 0 1 2-2h12v4" /><rect x="3" y="8" width="18" height="12" rx="2" /><circle cx="16.5" cy="14" r="1" /></Icon>
 export const CloseIcon = (p: P) => <Icon {...p}><path d="M6 6l12 12M18 6 6 18" /></Icon>
+export const SyncIcon = (p: P) => <Icon {...p}><path d="M4 12a8 8 0 0 1 13.5-5.8L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.5 5.8L4 15.5M4 20v-4.5h4.5" /></Icon>
+export const QrIcon = (p: P) => <Icon {...p}><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h3v3M20 14v1M14 20h1M17 20h3v-3" /></Icon>

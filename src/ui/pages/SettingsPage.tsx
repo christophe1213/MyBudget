@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import type { ImportMode, ImportPreview } from '@/application/workspaceService'
 import { totalBalance } from '@/domain/services/balances'
-import { DownloadIcon, UploadIcon } from '@/ui/components/icons'
+import { DownloadIcon, SyncIcon, UploadIcon } from '@/ui/components/icons'
 import { Sheet } from '@/ui/components/Sheet'
 import { AmountInput, Button, Card, CardTitle, Field, Notice, PageTitle, Segmented, TextInput } from '@/ui/components/ui'
-import { messageOf, useRun, useService, useWallet, useWorkspace } from '@/ui/context'
+import { messageOf, useNavigation, useRun, useService, useWallet, useWorkspace } from '@/ui/context'
 import { useConfirm, useToast } from '@/ui/feedback'
 import { formatAr, formatNumber, parseAmountOrZero } from '@/ui/format'
 
@@ -136,6 +136,7 @@ function WalletSheet({ id, onClose }: { id: string; onClose: () => void }) {
 
 function DataCard() {
   const service = useService()
+  const { go } = useNavigation()
   const run = useRun()
   const toast = useToast()
   const confirm = useConfirm()
@@ -170,6 +171,7 @@ function DataCard() {
         <Notice tone="info">Vos données restent <strong>sur cet appareil</strong> (stockage du navigateur). Exportez-les régulièrement en JSON pour en garder une copie ou les ouvrir sur un autre appareil.</Notice>
         <Button full onClick={exportBackup}><DownloadIcon className="size-5" />Exporter (JSON)</Button>
         <Button full variant="secondary" onClick={chooseFile}><UploadIcon className="size-5" />Importer (JSON)</Button>
+        <Button full variant="secondary" onClick={() => go('sync')}><SyncIcon className="size-5" />Synchroniser avec un serveur</Button>
         <Button full variant="danger" onClick={reset}>Tout effacer</Button>
       </div>
       {preview && <ImportSheet preview={preview} onClose={() => setPreview(null)} />}
@@ -177,7 +179,7 @@ function DataCard() {
   )
 }
 
-function ImportSheet({ preview, onClose }: { preview: ImportPreview; onClose: () => void }) {
+export function ImportSheet({ preview, onClose }: { preview: ImportPreview; onClose: () => void }) {
   const service = useService()
   const run = useRun()
   const [mode, setMode] = useState<ImportMode>('merge')

@@ -64,6 +64,24 @@ Tout reste **sur l'appareil** (clé `repere.workspace.v1` du localStorage). Aucu
 Dans le projet Python `suivi_hexagonal` : `python export_json.py` (ou `--sqlite`) crée un fichier à importer ici. Vérifié de bout en bout :
 `src/application/fixtures.test.ts` relit l'export des 176 transactions et retrouve les mêmes soldes que l'application de bureau.
 
+## Synchronisation avec un serveur distant
+
+**Réglages → Données → Synchroniser avec un serveur** ouvre l'écran de synchronisation (pas d'onglet dédié). On s'y connecte en **scannant le QR code**
+du serveur ou en **saisissant son adresse** (`http://192.168.1.20:8000/?token=zLhJ-QcsSdyX2bOC3o6SjA`), puis :
+- **Envoyer mes données** (après confirmation) : tous les portefeuilles partent au format JSON `repere` ci-dessus ;
+- **Récupérer les données** : le serveur répond, un aperçu s'affiche, et rien n'est modifié tant qu'on n'a pas choisi *Ajouter* ou *Remplacer* (même chemin que l'import d'un fichier).
+
+Protocole : WebSocket sur `ws(s)://<hôte>/ws?token=<jeton>` (le jeton est celui de l'adresse du QR code), messages JSON `{ "type", "data" }` :
+
+| Sens | Message |
+|---|---|
+| appareil → serveur | `{ "type": "workspace", "data": <sauvegarde repere> }` (envoi) · `{ "type": "get_workspace" }` (demande) |
+| serveur → appareil | `{ "type": "workspace", "data": <sauvegarde repere> }` (réponse à la demande, ou envoi spontané) |
+
+Limites : la caméra exige **HTTPS** (ou `localhost`) ; une page servie en **HTTPS** ne peut pas ouvrir une connexion `ws://` (contenu mixte) : utiliser `wss://`
+ou ouvrir l'application depuis le serveur local en `http://`. Le serveur n'envoie pas d'accusé de réception : « Envoyé » signifie que le message est parti.
+La bibliothèque de lecture de QR code (`html5-qrcode`) n'est chargée qu'à l'ouverture du scanner ; elle est mise en cache pour le mode hors ligne.
+
 ## Installer sur le téléphone et hors ligne
 
 L'application est une **PWA** : `manifest.webmanifest`, icônes, service worker (`public/sw.js`).

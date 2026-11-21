@@ -11,11 +11,12 @@ import { BrowserBackupFiles } from '@/adapters/browserFiles'
 import { LocalStorageRepository } from '@/adapters/localStorageRepository'
 import { MemoryRepository } from '@/adapters/memoryRepository'
 import { SystemClock, UuidGenerator } from '@/adapters/system'
+import { WebSocketGateway } from '@/adapters/webSocketGateway'
 
 export function createWorkspaceService(): WorkspaceService {
   const ids = new UuidGenerator()
   const build = (repository: WorkspaceRepository): WorkspaceService =>
-    new WorkspaceService({ repository, clock: new SystemClock(), ids, files: new BrowserBackupFiles() })
+    new WorkspaceService({ repository, clock: new SystemClock(), ids, files: new BrowserBackupFiles(), sync: new WebSocketGateway() })
 
   try {
     const service = build(new LocalStorageRepository(window.localStorage, () => ids.next()))

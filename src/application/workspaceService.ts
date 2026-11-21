@@ -9,8 +9,11 @@ import type { Wallet, Workspace } from '@/domain/model'
 import { type Period } from '@/domain/period'
 import { depositLabel } from '@/domain/services/budget'
 import * as ws from '@/domain/workspace'
+import { DomainError } from '@/domain/errors'
 import { parseWorkspace, serializeWorkspace } from './backup'
-import type { BackupFiles, Clock, IdGenerator, WorkspaceRepository } from './ports'
+import type { BackupFiles, Clock, IdGenerator, SyncGateway, WorkspaceRepository } from './ports'
+import { SyncSession } from './syncSession'
+import { toSocketUrl } from './syncAddress'
 
 export type ImportMode = 'replace' | 'merge'
 
@@ -25,6 +28,8 @@ export interface Dependencies {
   clock: Clock
   ids: IdGenerator
   files: BackupFiles
+  /** Absent : la synchronisation avec un serveur distant n'est pas proposée. */
+  sync?: SyncGateway
 }
 
 export class WorkspaceService {
@@ -172,6 +177,19 @@ export class WorkspaceService {
 
   applyImport(preview: ImportPreview, mode: ImportMode): void {
     this.commit(mode === 'replace' ? preview.workspace : ws.mergeWorkspaces(this.state, preview.workspace, () => this.deps.ids.next()))
+  }
+
+  // ---- synchronisation avec un serveur distant ---------------------------------------------------------
+  /** Ouvre une session avec le serveur désigné par l'adresse (lue dans le QR code ou saisie). Rien n'est modifié ici. */
+  async openSync(address: string): Promise<SyncSession> {
+    if (!this.deps.sync) throw new DomainError("La synchronisation n'est pas disponible sur cet appareil.")
+    const socketUrl = toSocketUrl(address)
+    const connection = await this.deps.sync.connect(socketUrl)
+    return new SyncSession(new URL(socketUrl).host, connection, {
+      snapshot: () => this.state,
+      nowIso: () => this.deps.clock.nowIso(),
+      preview: (fileName, text) => this.previewImport(fileName, text),
+    })
   }
 
   /** Efface tout et repart d'un espace vide. */
