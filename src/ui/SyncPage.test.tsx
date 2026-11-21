@@ -9,8 +9,8 @@ const ADDRESS = 'http://192.168.1.20:8000/?token=zLhJ-QcsSdyX2bOC3o6SjA'
 const SOCKET = 'ws://192.168.1.20:8000/ws?token=zLhJ-QcsSdyX2bOC3o6SjA'
 
 const serverBackup = {
-  type: 'workspace',
-  data: { format: 'repere', version: 1, wallets: [{ id: 'srv', name: 'Caisse serveur', initialBalance: 0, categories: [{ name: 'bazar', dailyBudget: 0 }], transactions: [{ id: 't', date: '2026-10-01', category: 'bazar', kind: 'expense', label: 'tomates', amount: 700 }] }] },
+  type: 'data',
+  payload: { format: 'repere', version: 1, wallets: [{ id: 'srv', name: 'Caisse serveur', initialBalance: 0, categories: [{ name: 'bazar', dailyBudget: 0 }], transactions: [{ id: 't', date: '2026-10-01', category: 'bazar', kind: 'expense', label: 'tomates', amount: 700 }] }] },
 }
 
 vi.mock('html5-qrcode', () => ({
@@ -97,46 +97,90 @@ describe('écran de synchronisation', () => {
     expect(screen.getByLabelText('Adresse du serveur')).toBeInTheDocument()
   })
 
-  it("envoie les données après confirmation ; annuler n'envoie rien", async () => {
+  it("envoie les données après validation et confirmation ; annuler n'envoie rien", async () => {
     const { user, sync } = await openSyncPage()
     await connectByAddress(user)
     const connection = sync.connections[0]!
 
     await user.click(screen.getByRole('button', { name: 'Envoyer mes données' }))
-    await user.click(within(screen.getByRole('dialog', { name: 'Envoyer vos données ?' })).getByRole('button', { name: 'Annuler' }))
+    const dialog = screen.getByRole('dialog', { name: 'Valider l’envoi ?' })
+    expect(within(dialog).getByText(/Vérification réussie : 1 portefeuille\(s\) \(Principal\), 0 transaction\(s\)/)).toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Annuler' }))
     expect(connection.sent).toEqual([])
 
     await user.click(screen.getByRole('button', { name: 'Envoyer mes données' }))
-    await user.click(within(screen.getByRole('dialog', { name: 'Envoyer vos données ?' })).getByRole('button', { name: 'Envoyer' }))
+    await user.click(within(screen.getByRole('dialog', { name: 'Valider l’envoi ?' })).getByRole('button', { name: 'Envoyer' }))
     expect(connection.sent).toHaveLength(1)
-    expect(connection.sent[0]).toMatchObject({ type: 'workspace', data: { format: 'repere', version: 1 } })
-    expect(await screen.findByText(/Envoyé : 1 portefeuille\(s\), 0 transaction\(s\)/)).toBeInTheDocument()
+    expect(connection.sent[0]).toMatchObject({ type: 'data', payload: { format: 'repere', version: 1 } })
+    expect(await screen.findByText(/Opération réussie : 1 portefeuille\(s\), 0 transaction\(s\) envoyés au serveur/)).toBeInTheDocument()
+
+    connection.receive({ type: 'ack', message: 'reçu' })
+    expect(await screen.findByText(/le serveur a confirmé la réception \(reçu\)/)).toBeInTheDocument()
   })
 
-  it("récupère les données : demande, aperçu, puis ajout seulement après accord", async () => {
-    const { user, sync, service } = await openSyncPage()
+  it("le serveur demande les données : validation puis réponse, ou refus signalé", async () => {
+    const { user, sync } = await openSyncPage()
+    await connectByAddress(user)
+    const connection = sync.connections[0]!
+
+    connection.receive({ type: 'request' })
+    const dialog = await screen.findByRole('dialog', { name: 'Le serveur demande vos données' })
+    await user.click(within(dialog).getByRole('button', { name: 'Annuler' }))
+    await waitFor(() => expect(connection.sent).toEqual([{ type: 'error', message: "Envoi refusé sur l'appareil." }]))
+
+    connection.receive({ type: 'request' })
+    await user.click(within(await screen.findByRole('dialog', { name: 'Le serveur demande vos données' })).getByRole('button', { name: 'Envoyer' }))
+    await waitFor(() => expect(connection.sent).toHaveLength(2))
+    expect(connection.sent[1]).toMatchObject({ type: 'data', payload: { format: 'repere' } })
+    expect(await screen.findByText(/Opération réussie : 1 portefeuille\(s\)/)).toBeInTheDocument()
+  })
+
+  it("récupère les données : demande, validation, puis enregistrement seulement après accord", async () => {
+    const { user, sync, service, repository } = await openSyncPage()
     await connectByAddress(user)
     const connection = sync.connections[0]!
 
     await user.click(screen.getByRole('button', { name: 'Récupérer les données' }))
-    expect(connection.sent).toEqual([{ type: 'get_workspace' }])
+    expect(connection.sent).toEqual([{ type: 'request' }])
     expect(screen.getByRole('button', { name: 'En attente du serveur…' })).toBeDisabled()
 
+    const savesBefore = repository.saves
     connection.receive(serverBackup)
-    const sheet = await screen.findByRole('dialog', { name: 'Importer une sauvegarde' })
+    const sheet = await screen.findByRole('dialog', { name: 'Valider les données reçues' })
+    expect(within(sheet).getByText(/Validation réussie/)).toBeInTheDocument()
     expect(within(sheet).getByText('Caisse serveur')).toBeInTheDocument()
     expect(service.getSnapshot().wallets).toHaveLength(1)
+    expect(repository.saves).toBe(savesBefore)   // rien n'est enregistré avant l'accord
 
     await user.click(within(sheet).getByRole('button', { name: 'Ajouter ces portefeuilles' }))
     expect(service.getSnapshot().wallets.map((w) => w.name)).toEqual(['Principal', 'Caisse serveur'])
+    expect(repository.saves).toBe(savesBefore + 1)
+    expect(await screen.findByText(/Opération réussie : portefeuilles ajoutés \(1 portefeuille\(s\), 1 transaction\(s\) enregistrés/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Récupérer les données' })).toBeEnabled()
+  })
+
+  it('récupère à partir d\u2019une date', async () => {
+    const { user, sync } = await openSyncPage()
+    await connectByAddress(user)
+    await user.type(screen.getByLabelText('Récupérer à partir du (facultatif)'), '2026-09-01')
+    await user.click(screen.getByRole('button', { name: 'Récupérer les données' }))
+    expect(sync.connections[0]!.sent).toEqual([{ type: 'request', start: '2026-09-01' }])
+  })
+
+  it('erreur signalée par le serveur : message, aucun aperçu', async () => {
+    const { user, sync } = await openSyncPage()
+    await connectByAddress(user)
+    await user.click(screen.getByRole('button', { name: 'Récupérer les données' }))
+    sync.connections[0]!.receive({ type: 'error', message: 'portefeuille inconnu' })
+    expect(await screen.findByText(/Le serveur signale une erreur : portefeuille inconnu/)).toBeInTheDocument()
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
   it('données reçues invalides : message, aucun aperçu', async () => {
     const { user, sync, service } = await openSyncPage()
     await connectByAddress(user)
     await user.click(screen.getByRole('button', { name: 'Récupérer les données' }))
-    sync.connections[0]!.receive({ type: 'workspace', data: { format: 'autre' } })
+    sync.connections[0]!.receive({ type: 'data', payload: { format: 'autre' } })
     expect(await screen.findByText(/Données reçues refusées/)).toBeInTheDocument()
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(service.getSnapshot().wallets).toHaveLength(1)

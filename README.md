@@ -68,18 +68,23 @@ Dans le projet Python `suivi_hexagonal` : `python export_json.py` (ou `--sqlite`
 
 **Réglages → Données → Synchroniser avec un serveur** ouvre l'écran de synchronisation (pas d'onglet dédié). On s'y connecte en **scannant le QR code**
 du serveur ou en **saisissant son adresse** (`http://192.168.1.20:8000/?token=zLhJ-QcsSdyX2bOC3o6SjA`), puis :
-- **Envoyer mes données** (après confirmation) : tous les portefeuilles partent au format JSON `repere` ci-dessus ;
-- **Récupérer les données** : le serveur répond, un aperçu s'affiche, et rien n'est modifié tant qu'on n'a pas choisi *Ajouter* ou *Remplacer* (même chemin que l'import d'un fichier).
+- **Envoyer mes données** : les données de l'appareil sont d'abord **vérifiées** (même contrôle strict que l'import), puis une fenêtre de **validation** résume ce qui va partir ; rien n'est envoyé sans confirmation, et un message « Opération réussie » s'affiche ensuite (et à l'accusé de réception du serveur) ;
+- **Récupérer les données** (éventuellement *à partir du* une date) : le serveur répond, les données sont **validées** et résumées dans une fenêtre *Valider les données reçues*. Rien n'est enregistré dans le `localStorage` tant qu'on n'a pas choisi *Ajouter* ou *Remplacer*, puis un message « Opération réussie » détaille ce qui a été enregistré ;
+- **Le serveur demande vos données** : même validation et même confirmation ; en cas de refus (ou de données invalides), le serveur reçoit un message d'erreur.
 
-Protocole : WebSocket sur `ws(s)://<hôte>/ws?token=<jeton>` (le jeton est celui de l'adresse du QR code), messages JSON `{ "type", "data" }` :
+Protocole : WebSocket sur `ws(s)://<hôte>/ws?token=<jeton>` (le jeton est celui de l'adresse du QR code), messages JSON, identiques à ceux de `test_synchronisation.html` :
 
 | Sens | Message |
 |---|---|
-| appareil → serveur | `{ "type": "workspace", "data": <sauvegarde repere> }` (envoi) · `{ "type": "get_workspace" }` (demande) |
-| serveur → appareil | `{ "type": "workspace", "data": <sauvegarde repere> }` (réponse à la demande, ou envoi spontané) |
+| appareil → serveur | `{ "type": "data", "payload": <sauvegarde repere> }` (envoi, ou réponse à une demande du serveur) |
+| appareil → serveur | `{ "type": "request" }` ou `{ "type": "request", "start": "AAAA-MM-JJ" }` (demande des données du serveur) |
+| appareil → serveur | `{ "type": "error", "message": "…" }` (l'utilisateur refuse de répondre à une demande du serveur) |
+| serveur → appareil | `{ "type": "data", "payload": <sauvegarde repere> }` (réponse à la demande, ou envoi spontané) |
+| serveur → appareil | `{ "type": "request" }` (le serveur demande les données de l'appareil) |
+| serveur → appareil | `{ "type": "ack", "message": "…" }` (accusé de réception d'un envoi) · `{ "type": "error", "message": "…" }` |
 
 Limites : la caméra exige **HTTPS** (ou `localhost`) ; une page servie en **HTTPS** ne peut pas ouvrir une connexion `ws://` (contenu mixte) : utiliser `wss://`
-ou ouvrir l'application depuis le serveur local en `http://`. Le serveur n'envoie pas d'accusé de réception : « Envoyé » signifie que le message est parti.
+ou ouvrir l'application depuis le serveur local en `http://`. « Opération réussie » après un envoi signifie que le message est parti ; la confirmation du serveur (`ack`) affiche un second message.
 La bibliothèque de lecture de QR code (`html5-qrcode`) n'est chargée qu'à l'ouverture du scanner ; elle est mise en cache pour le mode hors ligne.
 
 ## Installer sur le téléphone et hors ligne

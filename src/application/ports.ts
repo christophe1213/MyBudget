@@ -36,10 +36,18 @@ export class SyncError extends Error {
   }
 }
 
-/** Message échangé avec le serveur : { "type": "...", "data": ... }. */
+/**
+ * Message échangé avec le serveur (même protocole que test_synchronisation.html) :
+ *   { "type": "data", "payload": <sauvegarde repere> }   données (envoi, ou réponse à une demande)
+ *   { "type": "request", "start"?: "AAAA-MM-JJ" }         demande des données de l'autre côté
+ *   { "type": "ack", "message"?: "..." }                  accusé de réception du serveur
+ *   { "type": "error", "message": "..." }                 refus ou erreur
+ */
 export interface SyncMessage {
   readonly type: string
-  readonly data?: unknown
+  readonly payload?: unknown
+  readonly start?: string
+  readonly message?: string
 }
 
 export interface SyncConnection {

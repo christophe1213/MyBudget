@@ -179,23 +179,29 @@ function DataCard() {
   )
 }
 
-export function ImportSheet({ preview, onClose }: { preview: ImportPreview; onClose: () => void }) {
+/** `fromServer` : données reçues d'un serveur distant (étape de validation avant enregistrement, puis message de réussite détaillé). */
+export function ImportSheet({ preview, onClose, fromServer = false }: { preview: ImportPreview; onClose: () => void; fromServer?: boolean }) {
   const service = useService()
   const run = useRun()
   const [mode, setMode] = useState<ImportMode>('merge')
   const total = preview.wallets.reduce((s, w) => s + w.transactions, 0)
   const apply = (): void => {
-    if (run(() => service.applyImport(preview, mode), mode === 'replace' ? 'Données remplacées' : 'Portefeuilles ajoutés')) onClose()
+    const done = fromServer
+      ? `Opération réussie : ${mode === 'replace' ? 'données remplacées' : 'portefeuilles ajoutés'} (${preview.wallets.length} portefeuille(s), ${total} transaction(s) enregistrés sur cet appareil)`
+      : mode === 'replace' ? 'Données remplacées' : 'Portefeuilles ajoutés'
+    if (run(() => service.applyImport(preview, mode), done)) onClose()
   }
   return (
-    <Sheet open onClose={onClose} title="Importer une sauvegarde"
+    <Sheet open onClose={onClose} title={fromServer ? 'Valider les données reçues' : 'Importer une sauvegarde'}
       footer={(
         <>
           <Button full variant={mode === 'replace' ? 'danger' : 'primary'} onClick={apply}>{mode === 'replace' ? 'Remplacer mes données' : 'Ajouter ces portefeuilles'}</Button>
           <Button full variant="ghost" onClick={onClose}>Annuler</Button>
         </>
       )}>
-      <p className="text-sm text-muted">Fichier « {preview.fileName} » : {preview.wallets.length} portefeuille(s), {total} transaction(s). Il est valide.</p>
+      {fromServer
+        ? <Notice tone="success">Validation réussie : les données reçues de « {preview.fileName} » sont conformes ({preview.wallets.length} portefeuille(s), {total} transaction(s)). Rien n'est enregistré avant votre accord.</Notice>
+        : <p className="text-sm text-muted">Fichier « {preview.fileName} » : {preview.wallets.length} portefeuille(s), {total} transaction(s). Il est valide.</p>}
       <ul className="divide-y divide-line rounded-xl border border-line">
         {preview.wallets.map((w) => (
           <li key={w.name} className="flex items-center justify-between gap-3 px-3 py-2.5 text-sm">

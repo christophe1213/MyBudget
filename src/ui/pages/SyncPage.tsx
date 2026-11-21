@@ -1,11 +1,11 @@
 /** Synchronisation avec un serveur distant : connexion par QR code ou par adresse, puis envoi / récupération des données. */
 import { useEffect, useRef, useState } from 'react'
-import type { SyncSession } from '@/application/syncSession'
+import type { PreparedSend, SyncSession } from '@/application/syncSession'
 import type { ImportPreview } from '@/application/workspaceService'
 import { DownloadIcon, QrIcon, UploadIcon } from '@/ui/components/icons'
 import { Sheet } from '@/ui/components/Sheet'
-import { Button, Card, CardTitle, Field, Notice, PageTitle, TextInput } from '@/ui/components/ui'
-import { messageOf, useNavigation, useRun, useService, useWorkspace } from '@/ui/context'
+import { Button, Card, CardTitle, DateInput, Field, Notice, PageTitle, TextInput } from '@/ui/components/ui'
+import { messageOf, useNavigation, useRun, useService } from '@/ui/context'
 import { useConfirm, useToast } from '@/ui/feedback'
 import { ImportSheet } from './SettingsPage'
 
@@ -14,7 +14,6 @@ const ANSWER_TIMEOUT_MS = 10_000
 
 export function SyncPage() {
   const service = useService()
-  const workspace = useWorkspace()
   const run = useRun()
   const toast = useToast()
   const confirm = useConfirm()
@@ -24,8 +23,10 @@ export function SyncPage() {
   const [connecting, setConnecting] = useState(false)
   const [scanning, setScanning] = useState(false)
   const [waiting, setWaiting] = useState(false)
+  const [start, setStart] = useState('')
   const [preview, setPreview] = useState<ImportPreview | null>(null)
   const mounted = useRef(true)
+  const serverAsked = useRef<() => void>(() => undefined)   // toujours la version à jour de la réponse à une demande du serveur
 
   useEffect(() => {
     mounted.current = true
@@ -40,12 +41,14 @@ export function SyncPage() {
       if ('preview' in received) setPreview(received.preview)
       else toast.error(received.error)
     })
+    const offAcknowledged = session.onAcknowledged((message) => toast.success(`Opération réussie : le serveur a confirmé la réception (${message}).`))
+    const offRequested = session.onRequested(() => serverAsked.current())
     const offClosed = session.onClosed((reason) => {
       setSession(null)
       setWaiting(false)
       toast.error(reason)
     })
-    return () => { offReceived(); offClosed(); session.close() }
+    return () => { offReceived(); offAcknowledged(); offRequested(); offClosed(); session.close() }
   }, [session, toast])
 
   useEffect(() => {
@@ -67,21 +70,55 @@ export function SyncPage() {
     }
   }
 
-  const send = async (): Promise<void> => {
+  /** Exécute une commande ; en cas d'échec, affiche le message et retourne null. */
+  const attempt = <T,>(action: () => T): { value: T } | null => {
+    try {
+      return { value: action() }
+    } catch (e) {
+      toast.error(messageOf(e))
+      return null
+    }
+  }
+
+  const sentMessage = (sent: PreparedSend): string =>
+    `Opération réussie : ${sent.wallets} portefeuille(s), ${sent.transactions} transaction(s) envoyés au serveur`
+
+  /** Étape de validation : les données de l'appareil sont vérifiées, puis l'utilisateur confirme, avant tout envoi. */
+  const validateThenSend = async (title: string, intro: string): Promise<void> => {
     if (!session) return
-    const wallets = workspace.wallets.length
+    const checked = attempt(() => session.prepareSend())
+    if (!checked) return
+    const { wallets, names, transactions } = checked.value
     const ok = await confirm({
-      title: 'Envoyer vos données ?',
-      message: `Les ${wallets} portefeuille(s) de cet appareil seront envoyés à ${session.label}.`,
+      title,
+      message: `${intro} Vérification réussie : ${wallets} portefeuille(s) (${names.join(', ')}), ${transactions} transaction(s) seront envoyés à ${session.label}.`,
       confirmLabel: 'Envoyer',
     })
     if (!ok) return
-    let sent = { wallets: 0, transactions: 0 }
-    if (run(() => { sent = session.send() })) toast.success(`Envoyé : ${sent.wallets} portefeuille(s), ${sent.transactions} transaction(s)`)
+    const sent = attempt(() => session.send())
+    if (sent) toast.success(sentMessage(sent.value))
+  }
+
+  const send = (): Promise<void> => validateThenSend('Valider l\u2019envoi ?', 'Les données de cet appareil vont être envoyées.')
+
+  // Le serveur demande les données de l'appareil : même validation ; un refus (ou des données invalides) lui est signalé.
+  serverAsked.current = () => {
+    void (async () => {
+      if (!session) return
+      const checked = attempt(() => session.prepareSend())
+      const { wallets, names, transactions } = checked?.value ?? { wallets: 0, names: [], transactions: 0 }
+      const ok = checked !== null && await confirm({
+        title: 'Le serveur demande vos données',
+        message: `Le serveur ${session.label} demande les données de cet appareil. Vérification réussie : ${wallets} portefeuille(s) (${names.join(', ')}), ${transactions} transaction(s) seraient envoyés.`,
+        confirmLabel: 'Envoyer',
+      })
+      const answered = attempt(() => session.answerRequest(ok))
+      if (answered?.value) toast.success(sentMessage(answered.value))
+    })()
   }
 
   const request = (): void => {
-    if (session && run(() => session.requestWorkspace())) setWaiting(true)
+    if (session && run(() => session.requestWorkspace(start || undefined))) setWaiting(true)
   }
 
   const disconnect = (): void => {
@@ -114,9 +151,12 @@ export function SyncPage() {
           <div className="space-y-3">
             <Notice tone="success">Connecté à <strong>{session.label}</strong>.</Notice>
             <Button full onClick={send}><UploadIcon className="size-5" />Envoyer mes données</Button>
+            <Field label="Récupérer à partir du (facultatif)" hint="Vide : la date choisie sur le serveur, sinon tout l'historique.">
+              {(id) => <DateInput id={id} value={start} onChange={(e) => setStart(e.target.value)} />}
+            </Field>
             <Button full variant="secondary" disabled={waiting} onClick={request}><DownloadIcon className="size-5" />{waiting ? 'En attente du serveur…' : 'Récupérer les données'}</Button>
             <Button full variant="ghost" onClick={disconnect}>Se déconnecter</Button>
-            <p className="text-xs text-muted">Les données reçues ne sont appliquées qu'après votre accord : vous choisirez d'<strong>ajouter</strong> les portefeuilles ou de <strong>remplacer</strong> vos données.</p>
+            <p className="text-xs text-muted">Avant tout envoi, vos données sont <strong>vérifiées</strong> et vous confirmez. Les données reçues sont d'abord <strong>validées</strong>, puis enregistrées seulement après votre accord : vous choisirez d'<strong>ajouter</strong> les portefeuilles ou de <strong>remplacer</strong> vos données.</p>
           </div>
         </Card>
       ) : (
@@ -138,7 +178,7 @@ export function SyncPage() {
       )}
 
       {scanning && <QrScannerSheet onScan={scanned} onClose={() => setScanning(false)} />}
-      {preview && <ImportSheet preview={preview} onClose={() => setPreview(null)} />}
+      {preview && <ImportSheet fromServer preview={preview} onClose={() => setPreview(null)} />}
     </div>
   )
 }
